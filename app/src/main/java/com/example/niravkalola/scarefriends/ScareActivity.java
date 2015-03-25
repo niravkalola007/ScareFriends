@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ public class ScareActivity extends Activity {
         Intent intent=getIntent();
         int image=intent.getIntExtra("image", 0);
         int  sound = intent.getIntExtra("sound", 0);
+
 //        image = (Bitmap) intent.getParcelableExtra("image");
 //        imagView= (ImageView) findViewById(R.id.imagView);
 //        imagView.setImageBitmap(image);

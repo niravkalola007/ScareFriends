@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
@@ -18,6 +19,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 		Bundle bundle = intent.getExtras();
 		int image=bundle.getInt("image");
 		int  sound = bundle.getInt("sound");
+
+//		Toast.makeText(context, image + "" + sound, Toast.LENGTH_LONG).show();
 //		Log.e("bitmap", image+"");
 		// Vibrate the mobile phone
 //		Vibrator vibrator = (Vibrator) context
@@ -25,13 +28,10 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 //		vibrator.vibrate(2000);
 
 		Intent trIntent = new Intent("android.intent.action.MAIN");
-		intent.putExtra("image", image);
-		intent.putExtra("sound",sound);
+		trIntent.putExtra("image", image);
+		trIntent.putExtra("sound",sound);
 		trIntent.setClass(context, ScareActivity.class);
 		trIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-
-
 		context.startActivity(trIntent);
 //		mMediaPlayer = MediaPlayer.create(context, R.raw.ringtone);
 //		mMediaPlayer.setLooping(true);
