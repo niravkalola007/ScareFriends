@@ -1,7 +1,13 @@
 package com.example.niravkalola.scarefriends;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,11 +30,13 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     private Spinner spinnerImage,spinnerTime,spinnerSound;
+    public static AlarmManager alarmMgr;
+    public static PendingIntent alarmIntent;
     private Button btnStart,rateThisApp;
     public static Bitmap imageResBitmap;
     public static int soundResId;
     public static int timeMiliSec;
-
+    MediaPlayer mp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +99,7 @@ public class MainActivity extends Activity {
                 } else
                 if (j == 30)
                 {
-                    MainActivity     .timeMiliSec = 30000;
+                    MainActivity.timeMiliSec = 30000;
                     return;
                 }
             }
@@ -103,21 +111,24 @@ public class MainActivity extends Activity {
         });
     }
 
-    public void playSound(View view)
-    {
+    public void playSound(View view) {
 //        MusicManager.playSound(getApplicationContext(), soundResId);
+            if(mp!=null){
+                if(mp.isPlaying()){
+                    mp.stop();
+                }
+            }
+            mp= MediaPlayer.create(this, MainActivity.soundResId);
+            mp.start();
     }
 
 
-    public class ImageSpinnerAdapter extends BaseAdapter
-            implements SpinnerAdapter
-    {
+    public class ImageSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
 
         private final Activity activity;
         private final List content;
 
-        public ImageSpinnerAdapter(List list, Activity activity1)
-        {
+        public ImageSpinnerAdapter(List list, Activity activity1) {
             content = list;
             activity = activity1;
         }
@@ -137,8 +148,7 @@ public class MainActivity extends Activity {
             return (long)i;
         }
 
-        public View getView(int i, View view, ViewGroup viewgroup)
-        {
+        public View getView(int i, View view, ViewGroup viewgroup) {
             View view1 = activity.getLayoutInflater().inflate(R.layout.spinner_entry_with_icon, null);
             TextView textview = (TextView)view1.findViewById(R.id.spinnerTextEntry);
             ImageView imageview = (ImageView)view1.findViewById(R.id.spinnerImageEntry);
@@ -147,5 +157,24 @@ public class MainActivity extends Activity {
             imageview.setImageBitmap(spinnerimageentry.getImage());
             return view1;
         }
+    }
+
+    public void rate(View view) {
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.setData(Uri.parse("market://details?id=scare.your.friends.prank.maze.halloween"));
+        startActivity(intent);
+    }
+
+    public void startScary(View view) {
+        alarmMgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), MyBroadcastReceiver.class);
+        intent.putExtra("image", spinnerImage.getSelectedItemPosition());
+        intent.putExtra("sound",spinnerSound.getSelectedItemPosition());
+
+        alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 20000000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmMgr.cancel(alarmIntent);
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, timeMiliSec,
+                alarmIntent);
+        finish();
     }
 }

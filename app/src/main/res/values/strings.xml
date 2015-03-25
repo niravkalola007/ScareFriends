@@ -6,4 +6,8 @@
     <string name="app_name">Scare Your Friends</string>
     <string name="scary_maze">Scary maze</string>
     <string name="btn_label_start">Start Hypnotize</string>
+    <string name="title_activity_scare">ScareActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

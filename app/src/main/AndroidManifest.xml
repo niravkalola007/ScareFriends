@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.niravkalola.scarefriends" >
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.amax.dev.ramadan.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar"  >
+        android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name=".MainActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,9 +26,15 @@
             </intent-filter>
         </activity>
 
+        <!-- <activity android:theme="@android:style/Theme.NoTitleBar" android:name=".ScaryActivity" android:configChanges="keyboardHidden|orientation" /> -->
+        <!-- <activity android:name="com.google.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode" /> -->
+        <activity
+            android:name=".ScareActivity"
+            android:label="@string/title_activity_scare" >
+        </activity>
+        <receiver android:name=".MyBroadcastReceiver" >
+        </receiver>
 
-        <!--<activity android:theme="@android:style/Theme.NoTitleBar" android:name=".ScaryActivity" android:configChanges="keyboardHidden|orientation" />-->
-        <!--<activity android:name="com.google.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode" />-->
     </application>
 
 </manifest>
