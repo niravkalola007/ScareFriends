@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
     public static int soundResId;
     public static int timeMiliSec;
     MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +90,7 @@ public class MainActivity extends Activity {
         arrayadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTime.setAdapter(arrayadapter);
         spinnerTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int j = (new Integer(((String)parent.getItemAtPosition(position)).split(" ")[0])).intValue();
@@ -172,8 +174,8 @@ public class MainActivity extends Activity {
         intent.putExtra("sound",spinnerSound.getSelectedItemPosition());
 
         alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 20000000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmMgr.cancel(alarmIntent);
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, timeMiliSec,
+//        alarmMgr.cancel(alarmIntent);
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, MainActivity.timeMiliSec,
                 alarmIntent);
         finish();
     }

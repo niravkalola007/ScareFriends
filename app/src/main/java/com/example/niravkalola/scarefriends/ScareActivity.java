@@ -12,13 +12,18 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class ScareActivity extends Activity {
 
 //    private Bitmap image;
     private int sound;
-//    private ImageView imagView;
+    private int soundId;
+    private ImageView imagView;
     MediaPlayer mp;
+    private ArrayList<Integer> imageList;
+    private ArrayList<String> soundList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,16 +33,38 @@ public class ScareActivity extends Activity {
         int  sound = intent.getIntExtra("sound", 0);
 
 //        image = (Bitmap) intent.getParcelableExtra("image");
-//        imagView= (ImageView) findViewById(R.id.imagView);
+        imagView= (ImageView) findViewById(R.id.imagView);
 //        imagView.setImageBitmap(image);
-//        if(mp!=null){
-//            if(mp.isPlaying()){
-//                mp.stop();
-//            }
-//        }
-//        mp= MediaPlayer.create(this, sound);
-//        mp.start();
-        Toast.makeText(ScareActivity.this,image+""+sound,Toast.LENGTH_LONG).show();
+        soundList=new ArrayList<>();
+
+        soundList.add("exorcist sound 1");
+        soundList.add("woman scream 2");
+        soundList.add("woman short 3");
+        soundList.add("man scream 4");
+        soundList.add("cyber scream 5");
+        soundList.add("man light 6");
+
+        imageList=new ArrayList<>();
+        imageList.add(R.drawable.scary1);
+        imageList.add(R.drawable.scary2);
+        imageList.add(R.drawable.scary3);
+        imageList.add(R.drawable.scary4);
+        imageList.add(R.drawable.scary5);
+        imageList.add(R.drawable.scary6);
+        imageList.add(R.drawable.scary7);
+        imageList.add(R.drawable.scary8);
+        imageList.add(R.drawable.scary9);
+
+        imagView.setImageResource(imageList.get(image));
+        soundId= getResources().getIdentifier((new StringBuilder("scary_sound")).append(soundList.get(sound).split(" ")[2]).toString(), "raw", getPackageName());
+        if(mp!=null){
+            if(mp.isPlaying()){
+                mp.stop();
+            }
+        }
+        mp= MediaPlayer.create(this, soundId);
+        mp.start();
+//        Toast.makeText(ScareActivity.this,image+""+sound,Toast.LENGTH_LONG).show();
     }
 
     @Override
